@@ -15,6 +15,7 @@
 		7AD7CEB32146702100D56151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD7CEB22146702100D56151 /* main.m */; };
 		7AD7CEBD2146702100D56151 /* GLSliderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD7CEBC2146702100D56151 /* GLSliderTests.m */; };
 		7AD7CEC82146702100D56151 /* GLSliderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD7CEC72146702100D56151 /* GLSliderUITests.m */; };
+		7AD7CED72146724A00D56151 /* GLSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD7CED62146724A00D56151 /* GLSlider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		7AD7CEC32146702100D56151 /* GLSliderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GLSliderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD7CEC72146702100D56151 /* GLSliderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLSliderUITests.m; sourceTree = "<group>"; };
 		7AD7CEC92146702100D56151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AD7CED52146724A00D56151 /* GLSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLSlider.h; sourceTree = "<group>"; };
+		7AD7CED62146724A00D56151 /* GLSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLSlider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				7AD7CEA42146702000D56151 /* AppDelegate.m */,
 				7AD7CEA62146702000D56151 /* ViewController.h */,
 				7AD7CEA72146702000D56151 /* ViewController.m */,
+				7AD7CED52146724A00D56151 /* GLSlider.h */,
+				7AD7CED62146724A00D56151 /* GLSlider.m */,
 				7AD7CEA92146702000D56151 /* Main.storyboard */,
 				7AD7CEAC2146702100D56151 /* Assets.xcassets */,
 				7AD7CEAE2146702100D56151 /* LaunchScreen.storyboard */,
@@ -265,6 +270,7 @@
 				7AD7CEA82146702000D56151 /* ViewController.m in Sources */,
 				7AD7CEB32146702100D56151 /* main.m in Sources */,
 				7AD7CEA52146702000D56151 /* AppDelegate.m in Sources */,
+				7AD7CED72146724A00D56151 /* GLSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,12 +440,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MF7TCKDY8M;
 				INFOPLIST_FILE = GLSlider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.huobi.GLSlider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hbp.GLSlider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,12 +458,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MF7TCKDY8M;
 				INFOPLIST_FILE = GLSlider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.huobi.GLSlider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hbp.GLSlider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
