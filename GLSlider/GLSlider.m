@@ -36,6 +36,8 @@
     _value = 0.5;
     _minimumValue = 0.0;
     _maximumValue = 1.0;
+    _limitMaximumValue = 0.0;
+    _limitMaximumValue = 0.0;
     _minimumTrackTintColor = [UIColor colorWithRed:47/255.0 green:122/255.0 blue:246/255.0 alpha:1];
     _maximumTrackTintColor = [UIColor colorWithRed:182/255.0 green:182/255.0 blue:182/255.0 alpha:1];
     _thumbTintColor = [UIColor redColor];
@@ -100,8 +102,9 @@
         case UIGestureRecognizerStateBegan:
         {
             NSLog(@"手势开始");
-            [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue];
-        }
+            if (self.delegate && [self.delegate respondsToSelector:@selector(glSlider:currentValue:panType:)]) {
+                [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeBegin];
+            }        }
             break;
         case UIGestureRecognizerStateChanged:
         {
@@ -117,21 +120,35 @@
             rect.size.width = pan.view.center.x;
             self.minTrackView.frame = rect;
             
-            if (pan.view.frame.origin.x<=0) {
-                pan.view.center = CGPointMake(pan.view.frame.size.width/2, pan.view.center.y);
-                return;
-            } else if (pan.view.frame.origin.x >= self.frame.size.width-pan.view.frame.size.width) {
-                pan.view.center = CGPointMake(self.frame.size.width-pan.view.frame.size.width/2, pan.view.center.y);
-                return;
+            if (self.limitMaximumValue == 0.0) {
+                if (pan.view.frame.origin.x<=0) {
+                    pan.view.center = CGPointMake(pan.view.frame.size.width/2, pan.view.center.y);
+                    return;
+                } else if (pan.view.frame.origin.x >= self.frame.size.width-pan.view.frame.size.width) {
+                    pan.view.center = CGPointMake(self.frame.size.width-pan.view.frame.size.width/2, pan.view.center.y);
+                    return;
+                }
+            }else{
+                if (pan.view.center.x<=self.limitMinimumValue/self.maximumValue*self.frame.size.width) {
+                    pan.view.center = CGPointMake(self.limitMinimumValue/self.maximumValue*self.frame.size.width, pan.view.center.y);
+                    return;
+                } else if (pan.view.center.x >= self.limitMaximumValue/self.maximumValue*self.frame.size.width-pan.view.frame.size.width/2) {
+                    pan.view.center = CGPointMake(self.limitMaximumValue/self.maximumValue*self.frame.size.width-pan.view.frame.size.width/2, pan.view.center.y);
+                    return;
+                }
             }
-            [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(glSlider:currentValue:panType:)]) {
+                [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeChange];
+            }
         }
             break;
         case UIGestureRecognizerStateEnded:
         {
             _isPan = NO;
-            [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue];
-        }
+            if (self.delegate && [self.delegate respondsToSelector:@selector(glSlider:currentValue:panType:)]) {
+                [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeEnd];
+            }        }
             break;
             
         default:
@@ -142,6 +159,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (_isPan) return;
+    
+    if (self.limitMaximumValue != 0.0) {
+        if (!(self.minimumValue <= self.limitMinimumValue && self.limitMinimumValue <= self.value && self.value <= self.limitMaximumValue && self.limitMaximumValue <= self.maximumValue && self.limitMinimumValue != self.limitMaximumValue)) {
+            NSLog(@"限制条件错误");
+        }
+    }
     
     self.maxTrackView.frame = CGRectMake(0, self.frame.size.height/2-self.trackHeight/2, self.frame.size.width, self.trackHeight);
     

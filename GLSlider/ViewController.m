@@ -25,7 +25,9 @@
     self.slider = [[GLSlider alloc] initWithFrame:CGRectMake(x, 400, self.view.frame.size.width-2*x, 30)];
 //    self.silder.backgroundColor = [UIColor brownColor];
     self.slider.delegate = self;
-    self.slider.value = 30;
+    self.slider.value = 50;
+    self.slider.limitMinimumValue = 20;
+    self.slider.limitMaximumValue = 0;
     self.slider.minimumValue = 0;
     self.slider.maximumValue = 100;
     self.slider.thumbTintSize = CGSizeMake(40, 20);
@@ -40,11 +42,9 @@
     NSLog(@"==%d==%f",(int)sender.value,sender.value);
 }
 
-- (void)glSlider:(GLSlider *)slider currentValue:(float)currentValue {
+- (void)glSlider:(GLSlider *)slider currentValue:(float)currentValue panType:(GLSliderPanType)panType{
     NSLog(@"jjjjjj==%d==%f",(int)currentValue,currentValue);
-
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

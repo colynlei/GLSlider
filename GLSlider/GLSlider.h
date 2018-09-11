@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, GLSliderPanType) {
+    GLSliderPanTypeBegin,
+    GLSliderPanTypeChange,
+    GLSliderPanTypeEnd
+};
+
 @class GLSlider;
 @protocol GLSliderDelegate <NSObject>
 
-- (void)glSlider:(GLSlider *)slider currentValue:(float)currentValue;
+- (void)glSlider:(GLSlider *)slider currentValue:(float)currentValue panType:(GLSliderPanType)panType;
 
 @end
 
@@ -31,10 +37,13 @@
 @property (nonatomic, assign) CGFloat trackHeight;//轨道高度
 @property (nonatomic, assign) CGSize thumbTintSize;//滑块尺寸，默认self的高
 
+
+/**
+ 重要提示：minimumValue <= limitMinimumValue <= value <= limitMaximumValue <= maximumValue
+ */
 @property (nonatomic, assign) float value;//当前值
 @property (nonatomic, assign) float minimumValue;//最小值，默认0.0
 @property (nonatomic, assign) float maximumValue;//最大值，默认1.0
-
 @property (nonatomic, assign) float limitMinimumValue;//限制最小值
 @property (nonatomic, assign) float limitMaximumValue;//限制最大致
 
