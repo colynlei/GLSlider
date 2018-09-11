@@ -67,6 +67,11 @@
     self.currentThumbView.backgroundColor = thumbTintColor;
 }
 
+- (void)setThumbTintSize:(CGSize)thumbTintSize {
+    _thumbTintSize = thumbTintSize;
+    [self setNeedsLayout];
+}
+
 - (UIView *)maxTrackView {
     if (!_maxTrackView) {
         _maxTrackView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -101,10 +106,10 @@
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
         {
-            NSLog(@"手势开始");
             if (self.delegate && [self.delegate respondsToSelector:@selector(glSlider:currentValue:panType:)]) {
-                [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeBegin];
-            }        }
+                [self.delegate glSlider:self currentValue:(pan.view.center.x-pan.view.frame.size.width/2)/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeBegin];
+            }
+        }
             break;
         case UIGestureRecognizerStateChanged:
         {
@@ -121,34 +126,36 @@
             self.minTrackView.frame = rect;
             
             if (self.limitMaximumValue == 0.0) {
-                if (pan.view.frame.origin.x<=0) {
+                if (pan.view.center.x<=self.currentThumbView.frame.size.width/2) {
                     pan.view.center = CGPointMake(pan.view.frame.size.width/2, pan.view.center.y);
                     return;
-                } else if (pan.view.frame.origin.x >= self.frame.size.width-pan.view.frame.size.width) {
+                } else if (pan.view.center.x >= self.frame.size.width-pan.view.frame.size.width/2) {
                     pan.view.center = CGPointMake(self.frame.size.width-pan.view.frame.size.width/2, pan.view.center.y);
                     return;
                 }
             }else{
-                if (pan.view.center.x<=self.limitMinimumValue/self.maximumValue*self.frame.size.width) {
-                    pan.view.center = CGPointMake(self.limitMinimumValue/self.maximumValue*self.frame.size.width, pan.view.center.y);
+                if (pan.view.center.x<=self.limitMinimumValue/self.maximumValue*(self.frame.size.width-pan.view.frame.size.width)+pan.view.frame.size.width/2) {
+                    pan.view.center = CGPointMake(self.limitMinimumValue/self.maximumValue*(self.frame.size.width-pan.view.frame.size.width)+pan.view.frame.size.width/2, pan.view.center.y);
                     return;
-                } else if (pan.view.center.x >= self.limitMaximumValue/self.maximumValue*self.frame.size.width-pan.view.frame.size.width/2) {
-                    pan.view.center = CGPointMake(self.limitMaximumValue/self.maximumValue*self.frame.size.width-pan.view.frame.size.width/2, pan.view.center.y);
+                } else if (pan.view.center.x >= self.limitMaximumValue/self.maximumValue*(self.frame.size.width-pan.view.frame.size.width)+pan.view.frame.size.width/2) {
+                    pan.view.center = CGPointMake(self.limitMaximumValue/self.maximumValue*(self.frame.size.width-pan.view.frame.size.width)+pan.view.frame.size.width/2, pan.view.center.y);
                     return;
                 }
             }
             
             if (self.delegate && [self.delegate respondsToSelector:@selector(glSlider:currentValue:panType:)]) {
-                [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeChange];
+                [self.delegate glSlider:self currentValue:(pan.view.center.x-pan.view.frame.size.width/2)/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeChange];
             }
         }
             break;
         case UIGestureRecognizerStateEnded:
         {
             _isPan = NO;
+            _value = (pan.view.center.x-pan.view.frame.size.width/2)/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue;
             if (self.delegate && [self.delegate respondsToSelector:@selector(glSlider:currentValue:panType:)]) {
-                [self.delegate glSlider:self currentValue:pan.view.frame.origin.x/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeEnd];
-            }        }
+                [self.delegate glSlider:self currentValue:(pan.view.center.x-pan.view.frame.size.width/2)/(self.frame.size.width-pan.view.frame.size.width)*self.maximumValue panType:GLSliderPanTypeEnd];
+            }
+        }
             break;
             
         default:
