@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, GLSliderPanType) {
 @class GLSlider;
 @protocol GLSliderDelegate <NSObject>
 
-- (void)glSlider:(GLSlider *)slider currentValue:(float)currentValue panType:(GLSliderPanType)panType;
+- (void)glSlider:(GLSlider *)slider panType:(GLSliderPanType)panType;
 
 @end
 

@@ -24,6 +24,7 @@
                                 <color key="backgroundColor" red="1" green="0.54857892050000001" blue="0.29074120349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="dddd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kKX-uI-K77"/>
+                                    <action selector="valueChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="fCS-HI-dtt"/>
                                 </connections>
                             </slider>
                         </subviews>

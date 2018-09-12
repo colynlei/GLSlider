@@ -38,17 +38,20 @@
     self.slider.thumbTintColor = [UIColor blackColor];
     [self.view addSubview:self.slider];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.slider.thumbTintSize = CGSizeMake(20, 20);
-        self.slider.isThumbCornerRidus = YES;
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        self.slider.thumbTintSize = CGSizeMake(20, 20);
+//        self.slider.isThumbCornerRidus = YES;
+//    });
 }
 - (IBAction)dddd:(UISlider *)sender {
-    NSLog(@"==%d==%f",(int)sender.value,sender.value);
+    NSLog(@"1==%d==%f",(int)sender.value,sender.value);
+}
+- (IBAction)valueChange:(UISlider *)sender {
+    NSLog(@"2==%d==%f",(int)sender.value,sender.value);
 }
 
-- (void)glSlider:(GLSlider *)slider currentValue:(float)currentValue panType:(GLSliderPanType)panType{
-    NSLog(@"jjjjjj==%d==%f",(int)currentValue,currentValue);
+- (void)glSlider:(GLSlider *)slider panType:(GLSliderPanType)panType{
+    NSLog(@"jjjjjj==%f==%d",slider.value,(int)slider.value);
 }
 
 - (void)didReceiveMemoryWarning {
