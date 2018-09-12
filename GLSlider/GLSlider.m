@@ -23,12 +23,21 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initDetault];
-        [self addSubview:self.maxTrackView];
-        [self addSubview:self.minTrackView];
-        [self addSubview:self.currentThumbView];
+        [self subviewsInit];
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self subviewsInit];
+}
+
+- (void)subviewsInit {
+    [self initDetault];
+    [self addSubview:self.maxTrackView];
+    [self addSubview:self.minTrackView];
+    [self addSubview:self.currentThumbView];
 }
 
 - (void)initDetault {
