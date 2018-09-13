@@ -59,6 +59,9 @@
 - (void)setValue:(float)value {
     _value = value;
     [self setNeedsLayout];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(glSlider:panType:)]) {
+        [self.delegate glSlider:self panType:GLSliderPanTypeSetValue];
+    }
 }
 
 - (void)setMinimumTrackTintColor:(UIColor *)minimumTrackTintColor {
@@ -175,7 +178,9 @@
     if (_isPan) return;
     
     if (self.limitMaximumValue != 0.0) {
-        if (!(self.minimumValue <= self.limitMinimumValue && self.limitMinimumValue <= self.value && self.value <= self.limitMaximumValue && self.limitMaximumValue <= self.maximumValue && self.limitMinimumValue != self.limitMaximumValue)) {
+        if (self.value == self.limitMinimumValue && self.value == self.limitMaximumValue) {
+            NSLog(@"当前滑块无法滑动");
+        } else if (!(self.minimumValue <= self.limitMinimumValue && self.limitMinimumValue <= self.value && self.value <= self.limitMaximumValue && self.limitMaximumValue <= self.maximumValue && self.limitMinimumValue != self.limitMaximumValue)) {
             NSLog(@"限制条件错误");
         }
     }
