@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "GLSlider"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "滑块控件，类似于系统UISlider"
   s.homepage     = "https://github.com/colynlei/GLSlider"
   s.license      = "MIT"
